@@ -39,9 +39,9 @@
 											<td><c:out value="${stuff.quantity}" /></td>
 											<td><c:out value="${stuff.location}" /></td>
 											<td><a
-												href="/PSMS/edit?id=<c:out value='${stuff.id}' />">Edit</a>
+												href="/crud/StuffController?op=edit&id=<c:out value='${stuff.id}' />">Edit</a>
 												&nbsp;&nbsp;&nbsp;&nbsp; <a
-												href="/PSMS/delete?id=<C:out value='${stuff.id}' />">Delete</a>
+												href="/crud/StuffController?op=delete&id=<c:out value='${stuff.id}' />">Delete</a>
 											</td>
 										</tr>
 									</c:forEach>

@@ -27,7 +27,7 @@ public class DaoStuff implements StuffDao {
 
 	@Override
 	public Optional<Stuff> find(String id) throws SQLException {
-		String sql = "SELECT STUFF_ID,NAME,DESCRIPTION,QUANTITY,LOCATION From STUFF Where STUFF_ID=?";
+		String sql = "SELECT stuff_id,name,description,quantity,location From stuff WHERE stuff_id=?";
 		int STUFF_ID = 0;
 		int QUANTITY = 0;
 		String NAME = " ";
@@ -38,11 +38,11 @@ public class DaoStuff implements StuffDao {
 		statement.setString(1, id);
 		ResultSet resultSet = statement.executeQuery();
 		if (resultSet.next()) {
-			STUFF_ID = resultSet.getInt("STUFF_ID");
-			NAME = resultSet.getString("NAME");
-			DESCRIPTION = resultSet.getString("DESCRIPTION");
-			QUANTITY = resultSet.getInt("QUANTITY");
-			LOCATION = resultSet.getString("LOCATION");
+			STUFF_ID = resultSet.getInt("stuff_id");
+			NAME = resultSet.getString("name");
+			DESCRIPTION = resultSet.getString("description");
+			QUANTITY = resultSet.getInt("quantity");
+			LOCATION = resultSet.getString("location");
 		}
 		return Optional.of(new Stuff(STUFF_ID, NAME, DESCRIPTION, QUANTITY, LOCATION));
 	}
@@ -50,16 +50,16 @@ public class DaoStuff implements StuffDao {
 	@Override
 	public List<Stuff> findAll() throws SQLException {
 		List<Stuff> listStuff = new ArrayList<>();
-		String sql = "SELECT STUFF_ID,NAME, DESCRIPTION, QUANTITY,LOCATION From STUFF Where STUFF_ID=?";
+		String sql = "SELECT stuff_id,name,description,quantity,location FROM stuff WHERE stuff_id=?";
 		Connection conn = DataSourceFactory.getInstance().getOracleDBConnection();
 		Statement statement = conn.createStatement();
 		ResultSet resultSet = statement.executeQuery(sql);
 		while (resultSet.next()) {
-			int id = resultSet.getInt("STUFF_ID");
-			String name = resultSet.getString("NAME");
-			String description = resultSet.getString("DESCRIPTION");
-			int quantity = resultSet.getInt("QUANTITY");
-			String location = resultSet.getString("LOCATION");
+			int id = resultSet.getInt("stuff_id");
+			String name = resultSet.getString("name");
+			String description = resultSet.getString("description");
+			int quantity = resultSet.getInt("quantity");
+			String location = resultSet.getString("location");
 			Stuff stuff = new Stuff(id, name, description, quantity, location);
 			listStuff.add(stuff);
 		}
@@ -69,7 +69,7 @@ public class DaoStuff implements StuffDao {
 
 	@Override
 	public boolean save(Stuff o) throws SQLException {
-		String sql = "INSERT into STUFF(NAME,DESCRIPTION,QUANTITY,LOCATION) VALUES( ?, ?, ?, ?) ";
+		String sql = "INSERT into stuff(name,description,quantity,location) VALUES( ?, ?, ?, ?) ";
 		boolean rowInserted = false;
 		Connection conn = DataSourceFactory.getInstance().getOracleDBConnection();
 		PreparedStatement statement = conn.prepareStatement(sql);
@@ -85,8 +85,7 @@ public class DaoStuff implements StuffDao {
 	@Override
 	public boolean update(Stuff o) throws SQLException {
 
-		String sql = "UPDATE STUFF SET NAME =?, DESCRIPTION=?, QUANTITY=?, LOCATION=?";
-		sql += "  WHERE STUFF_ID=?";
+		String sql = "UPDATE stuff SET name =?, description=?, quantity=?, location=?";
 		boolean rowUpdateted = false;
 		Connection conn = DataSourceFactory.getInstance().getOracleDBConnection();
 		PreparedStatement statement = conn.prepareStatement(sql);
@@ -102,7 +101,7 @@ public class DaoStuff implements StuffDao {
 	@Override
 	public boolean delete(Stuff o) throws SQLException {
 
-		String sql = "DELETE FROM STUFF where STUFF_ID=?";
+		String sql = "DELETE FROM stuff WHERE stuff_id=?";
 		boolean rowDeleted = false;
 		Connection conn = DataSourceFactory.getInstance().getOracleDBConnection();
 		PreparedStatement statement = conn.prepareStatement(sql);

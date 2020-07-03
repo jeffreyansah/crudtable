@@ -47,6 +47,11 @@ public class StuffController extends HttpServlet {
 			case "insert":
 				insertStuff(req, resp);
 				break;
+				
+			case "list":
+				listStuff(req, resp);
+				break;
+				
 			case "delet":
 				deleteStuff(req, resp);
 				break;
@@ -84,7 +89,7 @@ public class StuffController extends HttpServlet {
 			throws ServletException, IOException, SQLException {
 		String id = req.getParameter("id");
 		Optional<Stuff> existingStuff = StuffDao.find(id);
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/StuffForm");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/stuffList.jsp");
 		existingStuff.ifPresent(s -> req.setAttribute("stuff", s));
 		dispatcher.forward(req, resp);
 	}
@@ -100,14 +105,14 @@ public class StuffController extends HttpServlet {
 
 	private void showNewForm(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/StuffForm");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/stuffList.jsp");
 		dispatcher.forward(req, resp);
 
 	}
 
 	private void listStuff(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException, SQLException {
-		RequestDispatcher dispatcher = req.getRequestDispatcher("/StuffForm");
+		RequestDispatcher dispatcher = req.getRequestDispatcher("/stuffList.jsp");
 		List<Stuff> listStuff = StuffDao.findAll();
 		req.setAttribute("listStuff", listStuff);
 		dispatcher.forward(req, resp);
